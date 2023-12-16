@@ -8,9 +8,10 @@ from datetime import datetime
 import Currency_exchange 
 
 def main():
-    while True:
+    while True: # Loop asks users if they need to check the exchange rate of USD to RMB today
         check_exchange_rate = input("Do you need to know the exchange rate between US dollar and RMB today? (yes/no): ").lower()
         if check_exchange_rate == 'yes':
+            ## Call the Currency_exchange module to get the exchange rate
             exchange_rate = Currency_exchange.get_exchange_rate()
             if exchange_rate:
                 print(f"USD to CNY Exchange rate: {exchange_rate}")
@@ -22,19 +23,21 @@ def main():
         else:
             print("Please enter 'yes' or 'no'. ")
 
-    # Check whether any command line arguments are passed in
+    # # Check if any command line arguments are passed in, and display if so
     if len(sys.argv) > 1:
         welcome_message = sys.argv[1]
         print(welcome_message)
-
+    
+    # Create a FinanceManager instance
     manager = Financialtools.FinanceManager()
+
     while True:  # Enter an infinite loop, allowing continuous data entry
         try:
-            manager.input_record()
+            manager.input_record() # User enters financial records
         except ValueError as e:
             print(e)
 
-        # Added currency conversion section
+        # currency conversion section
         while True:
                 convert_currency = input("Do you want to convert the amount to another currency? (yes/no): ").lower()
                 if convert_currency == 'yes':
@@ -46,7 +49,7 @@ def main():
                         except ValueError:
                             print("Please enter a valid amount.")
 
-                    converted_amount = manager.convert_currency(amount, from_currency)
+                    converted_amount = manager.convert_currency(amount, from_currency) # Call the conversion function and display the converted amount
                     print(f"Converted amount in USD: {converted_amount}")
 
                     while True:
@@ -80,7 +83,9 @@ def main():
     if choice.lower() == 'yes':
         manager.remove_records_by_date()
 
+    # Display all financial records
     manager.display_records()
+    
     #Update, get financial summary
     manager.update_category_summary()
     summary = manager.get_financial_summary()

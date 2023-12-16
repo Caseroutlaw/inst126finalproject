@@ -8,7 +8,9 @@ from forex_python.converter import CurrencyRates
 
 #Advanced String function Def
 def split_string(input_string, delimiter=' '):
+    # Splits the string into a list of substrings using the specified separator
     return input_string.split(delimiter)
+
 def use_raw_string(path):
     # Returning a raw string representation of a file path
     return r'{}'.format(path)
@@ -24,7 +26,10 @@ def extract_amount_from_record(record_string):
     match = pattern.search(record_string)
     return match.group(1) if match else None
 
+##------------------------------------------------------------------------------------------------------------------------------------------------
+
 class FinancialRecord:
+    # Financial Records class with category, amount, date, and description
     def __init__(self, category, amount, date, description):
         self.category = category
         self.amount = amount
@@ -32,8 +37,9 @@ class FinancialRecord:
         self.description = description
 
 class FinanceManager:
+    # Financial Management class for handling financial records and related operations
     def __init__(self):
-        self.records = []
+        self.records = [] # List of financial records
         self.category_summary = {"Income": 0, "Outcome": 0}  #Initializes the total amount of the category
 
     #Add a financial record to the record list.
